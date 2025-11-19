@@ -1,6 +1,11 @@
 ﻿#include <iostream>
 #include <memory>
 
+void CompositionExample();
+void AgregationExample();
+void VirtualExample();
+
+
 // Composition
 class Engine
 {
@@ -52,9 +57,6 @@ class Fraction
 public:
     friend std::ostream& operator<<(std::ostream& out, const Fraction& f);
 };
-
-void CompositionExample();
-void AgregationExample();
 
 class Shape
 {
@@ -144,41 +146,28 @@ public:
         Message::Show();
     }
 };
+
+class Base
+{
+public:
+    Base() { std::cout << "Base construct\n"; }
+    virtual ~Base() { std::cout << "Base destruct\n"; }
+};
+
+class Derived : public Base
+{
+public:
+    Derived() { std::cout << "Derived construct\n"; }
+    ~Derived() { std::cout << "Derived destruct\n"; }
+};
+
 int main()
 {
-    /*Message message("Hello world");
-    message.Show();*/
+    /*Base* base = new Base();
+    delete base;*/
 
-    /*SmsMessage smsMessage("Hello people", "999");
-    smsMessage.Show();
-
-    Message message = smsMessage;
-    message.Show();*/
-
-    /*Message* message = new Message("Hello world");
-    message->Show();
-
-    SmsMessage* smsMessage = new SmsMessage("Hello people", "000");
-    smsMessage->Show();
-
-    message = smsMessage;
-    message->Show();*/
-    
-    Shape* shape;
-    
-    /*shape = new Rectangle(20, 30);
-    std::cout << shape->Square() << "\n";
-
-    shape = new Circle(20);
-    std::cout << shape->Square() << "\n";*/
-
-    Shape* shapes[3];
-    shapes[0] = new Rectangle(30, 10);
-    shapes[1] = new Circle(30);
-    shapes[2] = new Rectangle(15, 26);
-
-    for(int i{}; i < 3; i++)
-        std::cout << shapes[i]->Square() << "\n";
+    Base* base = new Derived();
+    delete base;
 }
 
 void CompositionExample()
@@ -201,4 +190,41 @@ void AgregationExample()
     //std::unique_ptr<Employee> eptr(new Employee());
     //Employee* employee = new Employee;
     Company company(new Employee());
+}
+
+void VirtualExample()
+{
+    /*Message message("Hello world");
+    message.Show();*/
+
+    /*SmsMessage smsMessage("Hello people", "999");
+    smsMessage.Show();
+
+    Message message = smsMessage;
+    message.Show();*/
+
+    /*Message* message = new Message("Hello world");
+    message->Show();
+
+    SmsMessage* smsMessage = new SmsMessage("Hello people", "000");
+    smsMessage->Show();
+
+    message = smsMessage;
+    message->Show();*/
+
+    Shape* shape;
+
+    /*shape = new Rectangle(20, 30);
+    std::cout << shape->Square() << "\n";
+
+    shape = new Circle(20);
+    std::cout << shape->Square() << "\n";*/
+
+    Shape* shapes[3];
+    shapes[0] = new Rectangle(30, 10);
+    shapes[1] = new Circle(30);
+    shapes[2] = new Rectangle(15, 26);
+
+    for (int i{}; i < 3; i++)
+        std::cout << shapes[i]->Square() << "\n";
 }
